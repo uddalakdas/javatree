@@ -12,14 +12,14 @@ class Node {
 		this.character = character;
 	}
 
-	public double getwidth() {
+	public double getWidth() {
 		return width;
 	}
 	public void setWidth(double width){
 		this.width = width;
 	}
 	
-	public double getVolatage() {
+	public double getVoltage() {
 		return voltage;
 	}
 	public void setVoltage(double voltage){

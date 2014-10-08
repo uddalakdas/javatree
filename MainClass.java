@@ -10,9 +10,9 @@ class MainClass {
 		System.out.println("Enter a postfix expression : ");
 		String expression = br.readLine();
 		System.out.println("Enter a Lambda_P : ");
-		Util.lambdaP = Double.parseDouble(br.readLine());
+		Utils.lambdaP = Double.parseDouble(br.readLine());
 		System.out.println("Enter a Lambda_W : ");
-		Util.lambdaW = Double.parseDouble(br.readLine());
+		Utils.lambdaW = Double.parseDouble(br.readLine());
 		
 		PostFixToBinTree tree = new PostFixToBinTree(expression);
 		BinTree binTree = tree.getBinTree();
@@ -21,8 +21,7 @@ class MainClass {
 		
 		
 		Node nodes[] = Utils.getNodesInArray(binTree);
-		int n = Utils.getNoOfNodes(binTree.getRoot());
-		System.out.println("No of Nodes: "+n);
+		
 		
 		
 		System.out.println("Nodes-------------");
@@ -30,15 +29,17 @@ class MainClass {
 		for (int i=0; i<nodes.length;i++)
 			System.out.println("The node character: "+nodes[i].getCharacter());
 
-		NodeDistance nodeDistance[] = setNodeDistance(nodes,binTree);
-		Utils.calculateCost(nodeDistance);
-		NodeDistance minNodeDistance = Utils.getMinCost(nodeDistance);
+		NodeDistance nodeDistance[] = Utils.setNodeDistance(nodes,binTree);
+		//Utils.calculateCost(nodeDistance);
+		/*NodeDistance minNodeDistance = Utils.getMinCost(nodeDistance);
 		
 		System.out.println("Minimum Cost Function");
 		System.out.println("Node1---------------");
 		minNodeDistance.getNode1().displayContents("");
 		minNodeDistance.getNode2().displayContents("");
 		
-		System.out.print("Optimum Cost:" + minNodeDistance.getCost());
+		System.out.print("Optimum Cost:" + minNodeDistance.getCost());*/
+		
+		
 	}
 }

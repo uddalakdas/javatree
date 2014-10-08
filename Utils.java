@@ -36,6 +36,7 @@ class Utils {
 		System.out.println("No of Operands: "+noOfOperands);
 		
 		int noOfDistances = combination(noOfOperands,2);
+		System.out.println("No of combinations "+noOfDistances);
 		NodeDistance nodeDistance[]=new NodeDistance[noOfDistances];
 		int ind = 0;
 		for(int i=0;i<nodes.length;i++){
@@ -44,6 +45,8 @@ class Utils {
 					if(nodes[j].getCharacter()!='*' && nodes[j].getCharacter()!='+'){
 						int distance = calculateDistance(nodes[i],nodes[j],tree);
 						System.out.println("Distance of "+nodes[i].getCharacter()+" to "+nodes[j].getCharacter()+" is "+distance);
+						//System.out.println("Node distance at index "+ind+" and value "+nodeDistance[ind]);
+						nodeDistance[ind]=new NodeDistance();
 						nodeDistance[ind].setNode1(nodes[i]);
 						nodeDistance[ind].setNode2(nodes[j]);
 						nodeDistance[ind].setDistance(distance);
@@ -65,24 +68,30 @@ class Utils {
 			fact*=i;
 		return fact;
 	}
-	private static int height,minHeight,node1Found,node2Found;
+	private static int height,minHeight,node1Found,node2Found,flag;
 	public static int calculateDistance(Node node1,Node node2,BinTree tree){
 		height = 0;
 		minHeight = 100;
 		node1Found = -1;
 		node2Found = -1;
+		flag=0;
 		traverse(node1,node2,tree.getRoot());
+		System.out.println("Values of node1,node2 and minHeight are "+node1Found+","+node2Found+","+minHeight);
 		return (node1Found+node2Found-2*minHeight);
 	}
 	public static void traverse(Node node1,Node node2,Node node){
 		if(node1Found == -1){
 			if(node1.getCharacter() == node.getCharacter()){
 				node1Found = height;
+				System.out.println(node.getCharacter()+" found at height "+height);
 			}
 		}
 		else if(node1Found !=-1 && node2Found == -1){
 			if(node2.getCharacter() == node.getCharacter()){
 				node2Found = height;
+				System.out.println(node.getCharacter()+" found at height "+height);
+				flag=1;
+				return;
 			}
 			else{
 				if(height<minHeight)
@@ -93,11 +102,23 @@ class Utils {
 			height++;
 			traverse(node1,node2,node.getLeft());
 			height--;
+			if(node1Found !=-1 && node2Found ==-1){
+				if(height<minHeight)
+					minHeight=height;
+			}
+			if(flag==1)
+				return;
 		}
 		if(node.getRight()!=null){
 			height++;
 			traverse(node1,node2,node.getRight());
 			height--;
+			if(node1Found !=-1 && node2Found ==-1){
+				if(height<minHeight)
+					minHeight=height;
+			}
+			if(flag==1)
+				return;
 		}
 		
 	}

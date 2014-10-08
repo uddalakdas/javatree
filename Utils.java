@@ -126,8 +126,8 @@ class Utils {
 	public static void calculateCost(NodeDistance nodeDistance[]){
 		for(int i=0;i<nodeDistance.length;i++){
 			if(nodeDistance[i].getNode1().getVoltage()==nodeDistance[i].getNode2().getVoltage()){
-				double areaNode1 = nodeDistance[i].getNode1().getHeight()*nodeDistance[i].getNode1().getWidth();
-				double areaNode2 = nodeDistance[i].getNode2().getHeight()*nodeDistance[i].getNode2().getWidth();
+				double areaNode1 = (nodeDistance[i].getNode1().getHeight())*(nodeDistance[i].getNode1().getWidth());
+				double areaNode2 = (nodeDistance[i].getNode2().getHeight())*(nodeDistance[i].getNode2().getWidth());
 				double area;
 				if(areaNode1<areaNode2)
 					area=areaNode1;
@@ -135,15 +135,60 @@ class Utils {
 					area=areaNode2;
 				nodeDistance[i].setCost(area+(lambdaW*nodeDistance[i].getDistance())+(lambdaP*Math.pow(nodeDistance[i].getNode1().getVoltage(),2)*area));	
 			}
+			else{
+				nodeDistance[i].setCost(999999);
+			}
 		}
 	}
 	public static NodeDistance getMinCost(NodeDistance nodeDistance[]){
 		NodeDistance min = nodeDistance[0];
 		for(int i=1;i<nodeDistance.length;i++){
-			if(min.getCost()<nodeDistance[i].getCost())
+			if(nodeDistance[i].getCost()!=999999 && min.getCost()>nodeDistance[i].getCost())
 				min = nodeDistance[i];
 		}
 		return min;
+	}
+	public static double getOptimumArea(BinTree tree){
+		setOperatorParameters(tree.getRoot());
+		return (tree.getRoot().getWidth()*tree.getRoot().getHeight());
+	}
+	public static void setOperatorParameters(Node node){
+		double wLeft,wRight,hLeft,hRight,width=0,height=0;
+		if(node.getLeft().getCharacter()== '+' || node.getLeft().getCharacter()=='*'){
+			setOperatorParameters(node.getLeft());
+			
+		}
+		
+		wLeft = node.getLeft().getWidth();
+		hLeft=node.getLeft().getHeight();
+		
+		if(node.getRight().getCharacter()== '+' || node.getRight().getCharacter()=='*'){
+			setOperatorParameters(node.getRight());
+		}		
+		
+		wRight = node.getRight().getWidth();
+		hRight = node.getRight().getHeight();
+		
+		
+		if(node.getCharacter() == '+'){
+			width = wLeft+wRight;
+			height = hRight; 
+			if(hLeft > hRight)
+				height = hLeft;
+			
+		}
+		else if(node.getCharacter() == '*'){
+			height = hLeft+hRight;
+			width = wRight;
+			if(wLeft>wRight)
+				width = wLeft;
+		
+		}
+		node.setWidth(width);
+		node.setHeight(height);
+		
+		
+		
 	}
 	
 }

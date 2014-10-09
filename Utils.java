@@ -33,10 +33,10 @@ class Utils {
 		for(int i=0;i<nodes.length;i++)
 			if(nodes[i].getCharacter() != '+' && nodes[i].getCharacter() != '*')
 				noOfOperands++;
-		System.out.println("No of Operands: "+noOfOperands);
+		//System.out.println("No of Operands: "+noOfOperands);
 		
 		int noOfDistances = combination(noOfOperands,2);
-		System.out.println("No of combinations "+noOfDistances);
+		//System.out.println("No of combinations "+noOfDistances);
 		NodeDistance nodeDistance[]=new NodeDistance[noOfDistances];
 		int ind = 0;
 		for(int i=0;i<nodes.length;i++){
@@ -76,20 +76,20 @@ class Utils {
 		node2Found = -1;
 		flag=0;
 		traverse(node1,node2,tree.getRoot());
-		System.out.println("Values of node1,node2 and minHeight are "+node1Found+","+node2Found+","+minHeight);
+		//System.out.println("Values of node1,node2 and minHeight are "+node1Found+","+node2Found+","+minHeight);
 		return (node1Found+node2Found-2*minHeight);
 	}
 	public static void traverse(Node node1,Node node2,Node node){
 		if(node1Found == -1){
 			if(node1.getCharacter() == node.getCharacter()){
 				node1Found = height;
-				System.out.println(node.getCharacter()+" found at height "+height);
+				//System.out.println(node.getCharacter()+" found at height "+height);
 			}
 		}
 		else if(node1Found !=-1 && node2Found == -1){
 			if(node2.getCharacter() == node.getCharacter()){
 				node2Found = height;
-				System.out.println(node.getCharacter()+" found at height "+height);
+				//System.out.println(node.getCharacter()+" found at height "+height);
 				flag=1;
 				return;
 			}

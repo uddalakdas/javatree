@@ -124,8 +124,10 @@ class Utils {
 	}
 	public static double lambdaP,lambdaW;
 	public static void calculateCost(NodeDistance nodeDistance[]){
+		System.out.println("The nodes with the same voltage are :");
 		for(int i=0;i<nodeDistance.length;i++){
 			if(nodeDistance[i].getNode1().getVoltage()==nodeDistance[i].getNode2().getVoltage()){
+				System.out.println("The nodes with characters "+nodeDistance[i].getNode1().getCharacter()+" and "+nodeDistance[i].getNode2().getCharacter()+" have same voltage : "+nodeDistance[i].getNode1().getVoltage());
 				double areaNode1 = (nodeDistance[i].getNode1().getHeight())*(nodeDistance[i].getNode1().getWidth());
 				double areaNode2 = (nodeDistance[i].getNode2().getHeight())*(nodeDistance[i].getNode2().getWidth());
 				double area;
